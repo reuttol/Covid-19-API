@@ -7,13 +7,32 @@ const baseURLCovid = 'http://corona-api.com/countries/';
 const tabsContainer = document.querySelector(".tabs__navbar");
 const tabs = document.querySelectorAll(".tab"); 
 const btns = document.querySelectorAll('.continent-btn')
-tabs.forEach((tab)=> tab.addEventListener('click', changeTab, false));
-btns.forEach((btn)=>btn.addEventListener('click', handleContinent, false));
+const dropDown = document.querySelector('.countries-select');
 
-const se = document.querySelector('.countries-select');
-se.addEventListener('change', diaplayCountryStats, false);
+let world = {};
+// let state = {
+//     current: null,
+//     chart = null,
+//     countries = null
+// }
+let current = null;
+let chart = null;
+let countries = null;
+
+function addAllEventListeners(){
+    tabs.forEach((tab)=> tab.addEventListener('click', changeTab, false));
+    btns.forEach((btn)=>btn.addEventListener('click', handleContinent, false));
+    dropDown.addEventListener('change', diaplayCountryStats, false);
+}
+function removeAllEventListeners(){
+    tabs.forEach((tab)=> tab.removeEventListener('click', changeTab, false));
+    btns.forEach((btn)=>btn.removeEventListener('click', handleContinent, false));
+    dropDown.removeEventListener('change', diaplayCountryStats, false);
+}
 
 function diaplayCountryStats(event){
+    removeAllEventListeners();
+    // dropDown.disabled = true;
     const countryStats = document.querySelector('.country-stats');
     countryStats.classList.remove('hidden');
     const curCountry = world[current].data[event.target.value];
@@ -25,20 +44,22 @@ function diaplayCountryStats(event){
         containers[i].children[1].innerText = curCountry[key];
         i++;
     }
-    
+    // dropDown.disabled = false;
+    addAllEventListeners();
 }
 
-let world = {};
-let current = null;
-let chart = null;
-
 function changeTab(event){
+    removeAllEventListeners();
+    //dropDown.disabled = true;
     const selected = document.querySelector('.selected');
     switchSelection(selected, event.target)
     if(current==="world")
         drawWorldChart(event.target.getAttribute("name"));
     else
         drawContinentChart(world[current], event.target.getAttribute("name"));
+
+    //dropDown.disabled = false;
+    addAllEventListeners();
 }
 
 function switchSelection(toRemove, toSelect){
@@ -47,6 +68,8 @@ function switchSelection(toRemove, toSelect){
 }
 
 async function handleContinent(event){
+    removeAllEventListeners();
+    dropDown.disabled = true;
     const countryStats = document.querySelector('.country-stats');
     countryStats.classList.add('hidden');
     const continentName = event.target.getAttribute('name');
@@ -61,7 +84,9 @@ async function handleContinent(event){
         displayAllContinentsData();
     }
     else
-        displayContinentData(continentName)
+        displayContinentData(continentName);
+    
+    addAllEventListeners();
 }
 async function displayAllContinentsData(){
     
@@ -70,21 +95,27 @@ async function displayAllContinentsData(){
 
     await Promise.all(
         remaining.map(async (continent) => {
-          const countriesCodes = await getCountriesInContinent(await continent);
+          const countriesCodes = await getCountriesInContinent(continent);
           await getCountriesCovidStats(countriesCodes, continent);
         })
     );
-   
-    // let d = [];
-    // for (const key in world) {
-    //     d.push(...world[key].countriesNames);
-    // }
-    // world.allCountries = d;
-    console.log(world);
+    
+    if(!countries){
+        let d = [];
+        for (const key in world) {
+            d.push(...world[key].countriesNames);
+        }
+        countries = d.sort();
+    }
+    
+    dropDown.disabled = false;
+    displayCountriesNames(countries);
+    console.log("fff",world);
     drawWorldChart("confirmed");
 }
 async function displayContinentData(continentName){
     if(world[continentName]){
+        dropDown.disabled = false;
         displayCountriesNames(world[continentName].countriesNames);
         drawContinentChart(world[continentName], "confirmed");
         return;
@@ -93,6 +124,7 @@ async function displayContinentData(continentName){
     const countriesCodes = await getCountriesInContinent(continentName);
     await getCountriesCovidStats(countriesCodes, continentName);
 
+    dropDown.disabled = false;
     displayCountriesNames(world[continentName].countriesNames);
     drawContinentChart(world[continentName], "confirmed");
 }
@@ -134,22 +166,22 @@ async function getCountriesCovidStats(arr, continentName){
 
     world[continentName] = {
         data: allData,
-        countriesNames: countriesNames 
+        countriesNames: countriesNames.sort() 
     }
 }
 
 function displayCountriesNames(countriesArr){
-    const select = document.querySelector('.countries-select');
-    select.innerHTML = "";
+    // const select = document.querySelector('.countries-select');
+    dropDown.innerHTML = "";
     const first = document.createElement('option');
     first.innerText = "Choose Country";
     first.value = null;
-    select.appendChild(first)
+    dropDown.appendChild(first)
     countriesArr.forEach((country) =>{
         const option = document.createElement('option');
         option.innerText = country;
         option.value = country;
-        select.appendChild(option);
+        dropDown.appendChild(option);
     });
 }
 
@@ -192,10 +224,14 @@ function drawContinentChart(continentObj, subject){
     drawChart(continentObj.countriesNames, yLabel, subject);
 }
 function drawWorldChart(subject){
-    let d = [];
-    for (const key in world) {
-        d.push(...world[key].countriesNames);
-    }
+    // if(!(countries in world)){
+        // let d = [];
+        // for (const key in world) {
+            // if(key !== 'countries'){
+                // d.push(...world[key].countriesNames);
+            // }
+        // }
+    // }
 
     let yLabel = [];
     for(const continent in world){
@@ -204,8 +240,7 @@ function drawWorldChart(subject){
         }
     }
     
-    
-        drawChart(d, yLabel, subject);
+    drawChart(countries, yLabel, subject);
     
 }
 function remainingContinentsArray(){
@@ -214,3 +249,5 @@ function remainingContinentsArray(){
     const filtered = d.filter((n) => !(n in world))
     return filtered;
 }
+
+addAllEventListeners();

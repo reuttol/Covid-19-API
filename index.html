@@ -13,67 +13,70 @@
 <body>
     <main>
         <h2>Covid-19 Dashboard</h2>
-        <div class="grid">
-            <!-- <div class="continents-container"> -->
+        <div class="grid-container">
+            <div class="grid">
+                <!-- <div class="continents-container"> -->
                 <label for="">Continent:</label>
                 <div class="continents-btns">
-                    <button class="continent-btn" name="africa">Africa</button>
-                    <button class="continent-btn" name="americas">America</button>
-                    <button class="continent-btn" name="asia">Asia</button>
-                    <button class="continent-btn" name="europe">Europe</button>
-                    <button class="continent-btn" name="oceania">Oceania</button>
-                    <button class="continent-btn world" name="world">World</button>
+                    <button class="btn continent-btn" name="africa">Africa</button>
+                    <button class="btn continent-btn" name="americas">America</button>
+                    <button class="btn continent-btn" name="asia">Asia</button>
+                    <button class="btn continent-btn" name="europe">Europe</button>
+                    <button class="btn continent-btn" name="oceania">Oceania</button>
+                    <button class="btn continent-btn world" name="world">World</button>
                 </div>
                 <div class="separator"></div>
-            <!-- </div> -->
-            <!-- <div class="countries-container"> -->
+                <!-- </div> -->
+                <!-- <div class="countries-container"> -->
                 <label for="">Country:</label>
                 <!-- <div > -->
-                <select name="" id="" class="countries-select">
+                <select name="" id="" class="btn countries-select">
                     <option value="" selected>Choose Country</option>
                 </select>
                 <div class="separator"></div>
                 <!-- </div> -->
-            <!-- </div> -->
-            
+                <!-- </div> -->
+
+            </div>
         </div>
-        
+
+        <div class="country-stats hidden">
+            <div class="container">
+                <div class="name"></div>
+                <div class="value"></div>
+            </div>
+            <div class="container">
+                <div class="name"></div>
+                <div class="value"></div>
+            </div>
+            <div class="container">
+                <div class="name"></div>
+                <div class="value"></div>
+            </div>
+            <div class="container">
+                <div class="name"></div>
+                <div class="value"></div>
+            </div>
+            <div class="container">
+                <div class="name"></div>
+                <div class="value"></div>
+            </div>
+            <div class="container">
+                <div class="name"></div>
+                <div class="value"></div>
+            </div>
+        </div>
+        <div class="tabs">
+            <div class="tabs__navbar">
+                <button class="tab selected" name="confirmed">Confirmed</button>
+                <button class="tab" name="recovered">Recovered</button>
+                <button class="tab" name="critical">Critical</button>
+                <button class="tab" name="deaths">Deaths</button>
+            </div>
+
+            <canvas id="chart"></canvas>
+        </div>
     </main>
-    <div class="country-stats hidden">
-        <div class="container">
-            <div class="name"></div>
-            <div class="value"></div>
-        </div>
-        <div class="container">
-            <div class="name"></div>
-            <div class="value"></div>
-        </div>
-        <div class="container">
-            <div class="name"></div>
-            <div class="value"></div>
-        </div>
-        <div class="container">
-            <div class="name"></div>
-            <div class="value"></div>
-        </div>
-        <div class="container">
-            <div class="name"></div>
-            <div class="value"></div>
-        </div>
-        <div class="container">
-            <div class="name"></div>
-            <div class="value"></div>
-        </div>
-    </div>
-    <div class="tabs">
-        <div class="tabs__navbar">
-            <button class="tab selected" name="confirmed">Confirmed</button>
-            <button class="tab" name="recovered">Recovered</button>
-            <button class="tab" name="critical">Critical</button>
-            <button class="tab" name="deaths">Deaths</button>
-        </div>
-        <canvas id="chart"></canvas>
-    </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
 </body>
