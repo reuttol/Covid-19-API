@@ -1,0 +1,64 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+main{
+    margin: 0 auto;
+    width: fit-content;
+}
+h2{
+    text-align: center;
+    padding: 2rem;
+}
+.grid{
+    display: inline-grid;
+    grid-template-columns: min-content 1fr;
+    grid-template-rows: repeat(4, 0.5fr);
+    gap: 1rem 4rem;
+    justify-content: center;
+}
+.separator{
+    height: 2px;
+    grid-column: 1 / span 2;
+    background-color: #3c3c3c;
+    align-self: center;
+}
+.continents-btns{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: space-between;
+    width: fit-content;
+    /* margin: 0 auto; */
+}
+.continent-btn{
+    
+    cursor: pointer;
+}
+.world{
+    flex: 100%
+}
+.countries-select{
+    width: 100%t;
+}
+.tabs__navbar{
+    display: flex;
+    width: 100%;
+}
+.tab{
+    border: none;
+    border-bottom: none;
+    padding: 3px 1rem; 
+    cursor: pointer;
+    flex:1;
+}
+.tabs__content{
+    border: 1px solid gray;
+    height: 300px;
+    width: 100%;
+}
+.selected{
+    background-color: indianred;
+}

@@ -1,13 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <script src="s.js" defer></script>
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
+
 <body>
-    
+    <main>
+        <h2>Covid-19 Dashboard</h2>
+        <div class="grid">
+            <!-- <div class="continents-container"> -->
+                <label for="">Continent:</label>
+                <div class="continents-btns">
+                    <button class="continent-btn" name="africa">Africa</button>
+                    <button class="continent-btn" name="americas">America</button>
+                    <button class="continent-btn" name="asia">Asia</button>
+                    <button class="continent-btn" name="europe">Europe</button>
+                    <button class="continent-btn" name="oceania">Oceania</button>
+                    <button class="continent-btn world" name="world">World</button>
+                </div>
+                <div class="separator"></div>
+            <!-- </div> -->
+            <!-- <div class="countries-container"> -->
+                <label for="">Country:</label>
+                <!-- <div > -->
+                <select name="" id="" class="countries-select">
+                    <option value="" selected>Choose Country</option>
+                </select>
+                <div class="separator"></div>
+                <!-- </div> -->
+            <!-- </div> -->
+            
+        </div>
+        
+    </main>
+    <div class="tabs">
+        <div class="tabs__navbar">
+            <button class="tab selected" name="confirmed">Confirmed</button>
+            <button class="tab" name="recovered">Recovered</button>
+            <button class="tab" name="critical">Critical</button>
+            <button class="tab" name="deaths">Deaths</button>
+        </div>
+        <canvas id="chart"></canvas>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
 </body>
+
 </html>
