@@ -197,7 +197,9 @@ function drawChart(labels, chartData, subject){
             datasets: [{
                 label: `${current[0].toUpperCase()}${current.slice(1)}: ${subject}`,
                 data: chartData,
-
+                // color: "blue",
+                borderColor: "#22A6A6",
+                hoverBorderColor: "red",
                 borderWidth: 1,
             },
             ],
@@ -207,7 +209,15 @@ function drawChart(labels, chartData, subject){
                 yAxes: [
                     {
                         ticks: {
+                            fontColor: "#C65555",
                             beginAtZero: true,
+                        },
+                    },
+                ],
+                xAxes: [
+                    {
+                        ticks: {
+                            fontColor: "#C65555",
                         },
                     },
                 ],
