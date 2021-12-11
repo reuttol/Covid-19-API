@@ -2,6 +2,7 @@
 html{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 62.5%;
+    color: #3c3c3c;
 }
 *{
     margin: 0;
@@ -19,8 +20,10 @@ main{
 h2{
     text-align: center;
     padding: 2rem;
-    margin: 1rem 0;
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
     font-size: 3rem;
+    color: #22A6A6;
 }
 div{
     font-size: 1.6rem;
@@ -34,10 +37,9 @@ div{
     display: inline-grid;
     grid-template-columns: min-content 1fr;
     grid-template-rows: repeat(4, 0.5fr);
-    width: 90%;
-    gap: 1rem 3rem;
-    justify-content: center;
-    /* margin: 0 auto; */
+    width: 70%;
+    gap: 1rem 5rem;
+    padding: 1rem 5rem 2rem 1rem;
 }
 .separator{
     height: 2px;
@@ -50,14 +52,13 @@ div{
     flex-wrap: wrap;
     gap: 0.5rem;
     justify-content: space-between;
-    /* margin: 0 auto; */
 }
 .continent-btn{
-    
     cursor: pointer;
+    /* flex: auto; */
 }
 .world{
-    flex: 100%
+    flex: 100%;
 }
 .tabs__navbar{
     display: flex;
@@ -68,9 +69,9 @@ div{
     border-bottom: none;
     padding: 3px 1rem; 
     cursor: pointer;
-    flex:1;
+    flex: 1;
     font-family: inherit;
-    background-color: #fff;
+    background-color: #ddd;
     color: #000;
 }
 .tabs__content{
@@ -85,11 +86,16 @@ div{
 .country-stats{
     background-color: #C27676;
     display: flex;
-    /* gap: 2rem; */
-    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
     margin: 2rem 1rem;
     padding: 1rem;
     color: #fff;
+}
+.container{
+    flex: 1;
 }
 .hidden{
     display: none;
@@ -100,17 +106,336 @@ div{
     gap: 1rem;
     align-items: center;
 }
-#chart{
+.chart-container{
+    position: relative;
+    height: 70vh;
+    width: 90vw;
+    margin: auto;
     border: 1px solid indianred;
-    width: 100%;
-    padding: 2rem 0 1rem 0;
-    margin-bottom: 1.5rem;
 }
+
 .btn{
     border: none;
     color: #fff;
     background-color: #838383;
-    padding: 0.7rem 2rem;
-    border-radius: 2rem;
-    
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;   
+}
+.tabs{
+    position: relative;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+
+}
+.spinner-container{
+    background-color: #8080809c;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+}
+.spinner{
+    position: relative;
+    width: 40px;
+    height: 40px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.circle{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+#circle-1{
+    background-color: red;
+    animation: move1 4s ease-in-out infinite;
+}
+#circle-2{
+    background-color: blue;
+    animation: move2 4s ease-in-out infinite;
+}
+#circle-3{
+    background-color: yellow;
+    animation: move3 4s ease-in-out infinite;
+}
+#circle-4{
+    background-color: green;
+    animation: move4 4s ease-in-out infinite;
+}
+
+@keyframes move1{
+    0%{
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    9%{
+        top: 0%;
+        left: 100%;
+    }
+    17%{
+        top: 100%;
+        left: 100%;
+    }
+    25%{
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); 
+    }
+    33%{
+        top: 100%;
+        left: 100%;
+    } 
+    42%{
+        left: 0%;
+        top: 100%;
+    }
+    50%{
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); 
+    }
+    58%{
+        left: 0%;
+        top: 100%;
+    }
+    67%{
+        left: 0%;
+        top: 0%;
+    }
+    75%{
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); 
+    }
+    83%{
+        left: 0%;
+        top: 0%;
+    }
+    92%{
+        top:0%;
+        left: 100%;
+    }
+    100%{
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); 
+    }
+}
+
+@keyframes move2{
+    0%{
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    9%{
+        top: 100%;
+        left: 100%;
+    }
+    17%{
+        left: 0%;
+        top: 100%;
+    }
+    25%{
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); 
+    }
+    33%{
+        left: 0%;
+        top: 100%;
+    } 
+    42%{
+        left: 0%;
+        top: 0%;
+    }
+    50%{
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); 
+    }
+    58%{
+        left: 0%;
+        top: 0%;
+    }
+    67%{
+        top:0%;
+        left: 100%;
+    }
+    75%{
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); 
+    }
+    83%{
+        top: 0%;
+        left: 100%;
+    }
+    92%{
+        top: 100%;
+        left: 100%;
+    }
+    100%{
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); 
+    }
+}
+
+@keyframes move3{
+    0%{
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    9%{
+        left: 0%;
+        top: 100%;
+    }
+    17%{
+        left: 0%;
+        top: 0%;
+    }
+    25%{
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); 
+    }
+    33%{
+        left: 0%;
+        top: 0%;
+    } 
+    42%{
+        top: 0%;
+        left: 100%;
+    }
+    50%{
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); 
+    }
+    58%{
+        top: 0%;
+        left: 100%;
+    }
+    67%{
+        top: 100%;
+        left: 100%;
+    }
+    75%{
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); 
+    }
+    83%{
+        top: 100%;
+        left: 100%;
+    }
+    92%{
+        left: 0%;
+        top: 100%;
+    }
+    100%{
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); 
+    }
+}
+
+@keyframes move4{
+    0%{
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    9%{
+        left: 0%;
+        top: 0%;
+    }
+    17%{
+        top: 0%;
+        left: 100%;
+    }
+    25%{
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); 
+    }
+    33%{
+        top: 0%;
+        left: 100%;
+    } 
+    42%{
+        top: 100%;
+        left: 100%;
+    }
+    50%{
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); 
+    }
+    58%{
+        top: 100%;
+        left: 100%;
+    }
+    67%{
+        left: 0%;
+        top: 100%;
+    }
+    75%{
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); 
+    }
+    83%{
+        left: 0%;
+        top: 100%;
+    }
+    92%{
+        left: 0%;
+        top: 0%;
+    }
+    100%{
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); 
+    }
+}
+
+
+@media (max-width: 700px) {
+    .btn{
+        border: none;
+        color: #fff;
+        background-color: #838383;
+        padding: 0.5rem 1rem;
+        border-radius: 2rem;   
+    }
+    .continent-btn{
+        flex: 1;
+    }
+    .countries-select{
+        height: fit-content;
+        /* text-overflow: ellipsis; */
+        /* word-wrap: break-word; */
+    }
+    .grid{
+        width: auto;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(6, min-content);
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+    .separator{
+        grid-column: 1 / span 1;
+    }
 }

@@ -15,7 +15,6 @@
         <h2>Covid-19 Dashboard</h2>
         <div class="grid-container">
             <div class="grid">
-                <!-- <div class="continents-container"> -->
                 <label for="">Continent:</label>
                 <div class="continents-btns">
                     <button class="btn continent-btn" name="africa">Africa</button>
@@ -26,17 +25,11 @@
                     <button class="btn continent-btn world" name="world">World</button>
                 </div>
                 <div class="separator"></div>
-                <!-- </div> -->
-                <!-- <div class="countries-container"> -->
                 <label for="">Country:</label>
-                <!-- <div > -->
                 <select name="" id="" class="btn countries-select">
                     <option value="" selected>Choose Country</option>
                 </select>
                 <div class="separator"></div>
-                <!-- </div> -->
-                <!-- </div> -->
-
             </div>
         </div>
 
@@ -73,8 +66,18 @@
                 <button class="tab" name="critical">Critical</button>
                 <button class="tab" name="deaths">Deaths</button>
             </div>
+            <div class="chart-container">
+                <canvas id="chart"></canvas>
+            </div>
 
-            <canvas id="chart"></canvas>
+                <div class="spinner-container hidden">
+                    <div class="spinner">
+                        <div class="circle" id="circle-1"></div>
+                        <div class="circle" id="circle-2"></div>
+                        <div class="circle" id="circle-3"></div>
+                        <div class="circle" id="circle-4"></div>
+                    </div>
+                </div>
         </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>

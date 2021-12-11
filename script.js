@@ -1,41 +1,51 @@
-const baseURL = 'https://restcountries.herokuapp.com/api/v1/';
+const baseURLCountries = 'https://restcountries.herokuapp.com/api/v1/';
 const region = 'region/';
-const proxy = 'https://intense-mesa-62220.herokuapp.com/';
-
 const baseURLCovid = 'http://corona-api.com/countries/';
+const proxy = 'https://intense-mesa-62220.herokuapp.com/';
 
 const tabsContainer = document.querySelector(".tabs__navbar");
 const tabs = document.querySelectorAll(".tab"); 
 const btns = document.querySelectorAll('.continent-btn')
 const dropDown = document.querySelector('.countries-select');
+const spinner = document.querySelector('.spinner-container');
+const initialTab = "confirmed";
 
 let world = {};
-// let state = {
-//     current: null,
-//     chart = null,
-//     countries = null
-// }
 let current = null;
 let chart = null;
 let countries = null;
 
+function toggleSpinner(){
+    spinner.classList.toggle('hidden');
+}
 function addAllEventListeners(){
     tabs.forEach((tab)=> tab.addEventListener('click', changeTab, false));
-    btns.forEach((btn)=>btn.addEventListener('click', handleContinent, false));
+    btns.forEach((btn)=> btn.addEventListener('click', handleContinent, false));
     dropDown.addEventListener('change', diaplayCountryStats, false);
+
 }
 function removeAllEventListeners(){
-    tabs.forEach((tab)=> tab.removeEventListener('click', changeTab, false));
-    btns.forEach((btn)=>btn.removeEventListener('click', handleContinent, false));
-    dropDown.removeEventListener('change', diaplayCountryStats, false);
+    console.log("hbfj");
+    tabs.forEach((tab)=> tab.removeEventListener('click', changeTab));
+    btns.forEach((btn)=> btn.removeEventListener('click', handleContinent));
+    dropDown.removeEventListener('change', diaplayCountryStats);
 }
 
 function diaplayCountryStats(event){
     removeAllEventListeners();
-    // dropDown.disabled = true;
     const countryStats = document.querySelector('.country-stats');
     countryStats.classList.remove('hidden');
-    const curCountry = world[current].data[event.target.value];
+    const selectedCountry = event.target.value;
+    
+    let curCountry;
+    if(current === "world"){
+        for(key in world){
+            if(selectedCountry in world[key].data)
+                curCountry = world[key].data[selectedCountry];
+        }
+    }
+    else
+        curCountry = world[current].data[selectedCountry];
     const containers = document.querySelectorAll('.container');
    
     let i=0;
@@ -50,7 +60,9 @@ function diaplayCountryStats(event){
 
 function changeTab(event){
     removeAllEventListeners();
-    //dropDown.disabled = true;
+    toggleSpinner();
+    dropDown.disabled = true;
+
     const selected = document.querySelector('.selected');
     switchSelection(selected, event.target)
     if(current==="world")
@@ -58,7 +70,8 @@ function changeTab(event){
     else
         drawContinentChart(world[current], event.target.getAttribute("name"));
 
-    //dropDown.disabled = false;
+    dropDown.disabled = false;
+    toggleSpinner();
     addAllEventListeners();
 }
 
@@ -70,28 +83,26 @@ function switchSelection(toRemove, toSelect){
 async function handleContinent(event){
     removeAllEventListeners();
     dropDown.disabled = true;
+    toggleSpinner();
     const countryStats = document.querySelector('.country-stats');
     countryStats.classList.add('hidden');
     const continentName = event.target.getAttribute('name');
     current = continentName;
 
     const toRemove = document.querySelector('.selected');
-    const toSelect = document.querySelector('[name="confirmed"]');
+    const toSelect = document.querySelector(`[name="${initialTab}"]`);
     switchSelection(toRemove, toSelect);
 
     if(continentName === 'world'){
-        console.log("1");
-        displayAllContinentsData();
+       await displayAllContinentsData(); 
     }
     else
-        displayContinentData(continentName);
+       await displayContinentData(continentName);
     
     addAllEventListeners();
 }
 async function displayAllContinentsData(){
-    
     const remaining = remainingContinentsArray();
-    console.log("2",remaining);
 
     await Promise.all(
         remaining.map(async (continent) => {
@@ -101,23 +112,24 @@ async function displayAllContinentsData(){
     );
     
     if(!countries){
-        let d = [];
+        let temp = [];
         for (const key in world) {
-            d.push(...world[key].countriesNames);
+            temp.push(...world[key].countriesNames);
         }
-        countries = d.sort();
+        countries = temp.sort();
     }
     
     dropDown.disabled = false;
     displayCountriesNames(countries);
-    console.log("fff",world);
-    drawWorldChart("confirmed");
+    drawWorldChart(initialTab);
+    toggleSpinner();
 }
 async function displayContinentData(continentName){
     if(world[continentName]){
         dropDown.disabled = false;
         displayCountriesNames(world[continentName].countriesNames);
-        drawContinentChart(world[continentName], "confirmed");
+        drawContinentChart(world[continentName], initialTab);
+        toggleSpinner();
         return;
     }
 
@@ -126,11 +138,12 @@ async function displayContinentData(continentName){
 
     dropDown.disabled = false;
     displayCountriesNames(world[continentName].countriesNames);
-    drawContinentChart(world[continentName], "confirmed");
+    drawContinentChart(world[continentName], initialTab);
+    toggleSpinner();
 }
 
 async function getCountriesInContinent(continentName){
-    const response = await fetch(`${proxy}${baseURL}${region}${continentName}`);
+    const response = await fetch(`${proxy}${baseURLCountries}${region}${continentName}`);
     const data = await response.json();
 
     return data.map((country) => country.cca2);
@@ -144,7 +157,7 @@ async function getCountriesCovidStats(arr, continentName){
     const responses = await Promise.all(arr)
     responses.forEach((element)=>{
         if(!element.ok)
-            console.log("this", element);
+            console.log("Error:", element);
         else
             data.push(element.json())
     });
@@ -205,11 +218,12 @@ function drawChart(labels, chartData, subject){
             ],
         },
         options: {
+            maintainAspectRatio: false,
             scales: {
                 yAxes: [
                     {
                         ticks: {
-                            fontColor: "#C65555",
+                            fontColor: "#AE3D3D",
                             beginAtZero: true,
                         },
                     },
@@ -217,7 +231,7 @@ function drawChart(labels, chartData, subject){
                 xAxes: [
                     {
                         ticks: {
-                            fontColor: "#C65555",
+                            fontColor: "#AE3D3D",
                         },
                     },
                 ],
