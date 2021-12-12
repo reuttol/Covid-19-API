@@ -25,7 +25,6 @@ function addAllEventListeners(){
 
 }
 function removeAllEventListeners(){
-    console.log("hbfj");
     tabs.forEach((tab)=> tab.removeEventListener('click', changeTab));
     btns.forEach((btn)=> btn.removeEventListener('click', handleContinent));
     dropDown.removeEventListener('change', diaplayCountryStats);
