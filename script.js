@@ -247,15 +247,6 @@ function drawContinentChart(continentObj, subject){
     drawChart(continentObj.countriesNames, yLabel, subject);
 }
 function drawWorldChart(subject){
-    // if(!(countries in world)){
-        // let d = [];
-        // for (const key in world) {
-            // if(key !== 'countries'){
-                // d.push(...world[key].countriesNames);
-            // }
-        // }
-    // }
-
     let yLabel = [];
     for(const continent in world){
         for (const country in world[continent].data) {
